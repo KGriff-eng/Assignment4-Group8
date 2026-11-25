@@ -1,0 +1,35 @@
+{
+  "name": "assignment4-group8",
+  "version": "1.0.0",
+  "description": "src/ - for all web application & SQL/backend/frontend source code\r dump/ - for all SQL dump file(s) here (as in Assignment 3)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KGriff-eng/Assignment4-Group8.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KGriff-eng/Assignment4-Group8/issues"
+  },
+  "homepage": "https://github.com/KGriff-eng/Assignment4-Group8#readme",
+  "dependencies": {
+    "dotenv": "^18.0.10",
+    "ejs": "^7.0.2",
+    "express": "^5.3.0",
+    "express-validator": "^7.3.2",
+    "mysql2": "^3.24.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
