@@ -31,3 +31,6 @@ env/
 # Keep dump files tracked if placed in dump/
 !dump/*.sql
 !dump/*.dump
+
+# Log files
+*.log
