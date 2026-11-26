@@ -1,0 +1,12 @@
+<%- include('partials/header') %>
+
+<div class="card error-card">
+  <h2><%= title %></h2>
+  <p><%= message %></p>
+  <% if (errorDetail) { %>
+    <pre class="sql-error-box"><%= errorDetail %></pre>
+  <% } %>
+  <a href="/" class="btn">Back to Home</a>
+</div>
+
+<%- include('partials/footer') %>

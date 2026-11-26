@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> | SE 3309 Group 8</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="/">SE 3309 Group 8</a></div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/features/option1">Option 1</a></li>
+      <li><a href="/features/option2">Option 2</a></li>
+      <li><a href="/features/option3">Option 3</a></li>
+      <li><a href="/features/option4">Option 4</a></li>
+      <li><a href="/features/option5">Option 5</a></li>
+      <li><a href="/features/option6">Option 6</a></li>
+      <li><a href="/features/option7">Option 7</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <% if (typeof success !== 'undefined' && success) { %>
+      <div class="alert alert-success"><%= success %></div>
+    <% } %>
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="alert alert-error"><strong>Error:</strong> <%= error %></div>
+    <% } %>
