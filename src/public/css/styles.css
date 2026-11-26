@@ -1,0 +1,181 @@
+:root {
+  --peach-echo: #f47358;
+  --burnt-toast: #200808;
+  --english-breakfast: #451616;
+  --faded-violet: #dbbddc;
+  --bright-bluebell: #99a5cd;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: #f7f3f7;
+  color: var(--burnt-toast);
+}
+
+.navbar {
+  background-color: var(--burnt-toast);
+  color: #ffffff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-bottom: 3px solid var(--peach-echo);
+}
+
+.nav-brand a {
+  color: var(--peach-echo);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1.15rem;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  color: var(--faded-violet);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.15s ease;
+}
+
+.nav-links a:hover {
+  color: var(--peach-echo);
+}
+
+.container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+h1, h2, h3 {
+  color: var(--english-breakfast);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.card {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--faded-violet);
+  border-top: 4px solid var(--bright-bluebell);
+  box-shadow: 0 2px 6px rgba(32, 8, 8, 0.06);
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 0.75rem;
+  background-color: var(--peach-echo);
+  color: var(--burnt-toast);
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn:hover {
+  background-color: var(--english-breakfast);
+  color: #ffffff;
+}
+
+form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: var(--english-breakfast);
+}
+
+form input,
+form select {
+  width: 100%;
+  padding: 0.55rem;
+  margin-top: 0.35rem;
+  border: 1px solid var(--bright-bluebell);
+  border-radius: 4px;
+  color: var(--burnt-toast);
+  background-color: #ffffff;
+}
+
+form input:focus,
+form select:focus {
+  outline: 2px solid var(--peach-echo);
+  border-color: var(--peach-echo);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background-color: #ffffff;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  border: 1px solid var(--faded-violet);
+  text-align: left;
+}
+
+th {
+  background-color: var(--faded-violet);
+  color: var(--burnt-toast);
+}
+
+.alert {
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.alert-success {
+  background-color: #eef1fa;
+  color: var(--burnt-toast);
+  border: 1px solid var(--bright-bluebell);
+  border-left: 5px solid var(--bright-bluebell);
+}
+
+.alert-error {
+  background-color: #fdece8;
+  color: var(--english-breakfast);
+  border: 1px solid var(--peach-echo);
+  border-left: 5px solid var(--peach-echo);
+}
+
+.sql-error-box {
+  background-color: var(--burnt-toast);
+  color: var(--peach-echo);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--english-breakfast);
+  font-size: 0.9rem;
+}
