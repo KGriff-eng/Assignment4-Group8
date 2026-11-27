@@ -1,0 +1,110 @@
+
+<svg class="registry-car"
+     viewBox="0 0 180 90"
+     xmlns="http://www.w3.org/2000/svg"
+     aria-hidden="true">
+
+    <!-- Ground shadow -->
+    <ellipse cx="90" cy="76"
+             rx="80" ry="6"
+             fill="#451616" opacity="0.15"/>
+
+    <!-- Classic car body -->
+    <path d="M8 56
+             L17 42
+             L48 34
+             L67 15
+             H116
+             L145 38
+             L165 44
+             L173 57
+             V66
+             H8 Z"
+          fill="#451616"
+          stroke="#200808"
+          stroke-width="1.8"/>
+
+    <!-- Front and rear windows -->
+    <path d="M56 34 L72 20 H93 V34 Z"
+          fill="#e6d6e7"/>
+
+    <path d="M99 20 H113 L134 34 H99 Z"
+          fill="#e6d6e7"/>
+
+    <!-- Window detailing -->
+    <path d="M72 20 L61 34
+             M113 20 L127 34"
+          stroke="#ffffff"
+          stroke-width="1.5"
+          opacity="0.4"/>
+
+    <!-- Door outline -->
+    <path d="M96 38 V58
+             M61 38 V58"
+          stroke="#200808"
+          stroke-width="1.2"/>
+
+    <!-- Door handle -->
+    <path d="M80 43 H90"
+          stroke="#dbbddc"
+          stroke-width="2"
+          stroke-linecap="round"/>
+
+    <!-- Chrome body trim -->
+    <path d="M15 47 H38
+             M58 40 H123
+             M145 45 H165"
+          stroke="#dbbddc"
+          stroke-width="1.8"/>
+
+    <!-- Peach racing accent -->
+    <path d="M9 61 H172"
+          stroke="#f47358"
+          stroke-width="2.5"/>
+
+    <!-- Headlights -->
+    <rect x="163" y="48"
+          width="9" height="7" rx="2"
+          fill="#f1e6dc"/>
+
+    <!-- Tail lights -->
+    <rect x="9" y="49"
+          width="7" height="7" rx="2"
+          fill="#f47358"/>
+
+    <!-- Chrome bumpers -->
+    <path d="M5 65 H23
+             M156 65 H176"
+          stroke="#bcb0c8"
+          stroke-width="4"
+          stroke-linecap="round"/>
+
+    <!-- Wheels -->
+    <% [43, 139].forEach(wheel => { %>
+
+        <circle cx="<%= wheel %>" cy="65"
+                r="16" fill="#200808"/>
+
+        <circle cx="<%= wheel %>" cy="65"
+                r="11" fill="#bcb0c8"/>
+
+        <circle cx="<%= wheel %>" cy="65"
+                r="8" fill="#451616"/>
+
+        <% for (let i = 0; i < 5; i++) { %>
+
+            <line x1="<%= wheel %>" y1="58"
+                  x2="<%= wheel %>" y2="63"
+                  stroke="#dbbddc"
+                  stroke-width="2"
+                  transform="rotate(<%= i * 72 %>
+                             <%= wheel %> 65)"/>
+
+        <% } %>
+
+        <circle cx="<%= wheel %>" cy="65"
+                r="3" fill="#dbbddc"/>
+
+    <% }); %>
+
+</svg>

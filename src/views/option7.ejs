@@ -1,0 +1,401 @@
+
+<%- include('partials/header') %>
+
+<link rel="stylesheet" href="/css/rachel-features.css">
+
+<div class="rachel-page registry-page">
+
+    <!-- Hero banner -->
+    <section class="hero registry-hero">
+
+        <span class="hero-tag">
+            Workshop Collection / 07
+        </span>
+
+        <h1>Customer<br>Registry.</h1>
+
+        <p>Customer records &amp; vehicle ownership.</p>
+
+        <%- include('partials/mirror-graphic') %>
+
+        <div class="racing-strip" aria-hidden="true"></div>
+
+    </section>
+
+    <!-- Customer search -->
+    <div class="card">
+
+        <h3>Find a Customer</h3>
+
+        <form action="/features/option7"
+              method="GET"
+              class="registry-search">
+
+            <label for="search">
+                Customer name or email address
+            </label>
+
+            <input type="text"
+                   id="search"
+                   name="search"
+                   placeholder="Enter a name or email address"
+                   value="<%= search %>"
+                   minlength="2"
+                   maxlength="100"
+                   required>
+
+            <button type="submit" class="btn">
+                Search Customer Registry
+            </button>
+
+        </form>
+
+        <% if (search !== '') { %>
+
+            <p class="customer-count">
+                <%= customers.length %> matching
+                <%= customers.length === 1
+                    ? 'customer' : 'customers' %>
+            </p>
+
+        <% } %>
+
+    </div>
+
+    <!-- Customer search results -->
+    <% customers.forEach(customer => { %>
+
+        <div class="customer-section">
+
+            <!-- Vintage customer registration card -->
+            <section class="customer-registration">
+
+                <div class="registration-paper">
+
+                    <div class="registration-heading">
+
+                        <div>
+                            <span class="registration-label">
+                                AUTOSERVICE DB
+                            </span>
+
+                            <h3>Customer Record</h3>
+                        </div>
+
+                        <!-- Decorative registry stamp -->
+                        <svg class="registry-stamp"
+                             viewBox="0 0 80 80"
+                             aria-hidden="true">
+
+                            <circle cx="40" cy="40" r="37"
+                                    fill="none"
+                                    stroke="#451616"/>
+
+                            <circle cx="40" cy="40" r="32"
+                                    fill="none"
+                                    stroke="#451616"
+                                    stroke-dasharray="2 2"/>
+
+                            <text x="40" y="23"
+                                  text-anchor="middle"
+                                  font-size="9"
+                                  fill="#451616"
+                                  letter-spacing="1">
+                                REGISTRY
+                            </text>
+
+                            <path d="M21 47 L27 34
+                                     H53 L59 47 Z"
+                                  fill="none"
+                                  stroke="#451616"
+                                  stroke-width="2"/>
+
+                            <rect x="18" y="44"
+                                  width="44" height="13"
+                                  rx="4" fill="#451616"/>
+
+                            <circle cx="27" cy="57"
+                                    r="5" fill="#451616"/>
+
+                            <circle cx="53" cy="57"
+                                    r="5" fill="#451616"/>
+
+                        </svg>
+
+                    </div>
+
+                    <div class="registration-name">
+
+                        <span class="registration-label">
+                            Registered Customer
+                        </span>
+
+                        <h2>
+                            <%= customer.FirstName %>
+                            <%= customer.LastName %>
+                        </h2>
+
+                    </div>
+
+                    <div class="customer-information">
+
+                        <div class="customer-field">
+
+                            <span>Email Address</span>
+
+                            <strong>
+                                <%= customer.CustomerEmail %>
+                            </strong>
+
+                        </div>
+
+                        <div class="customer-field">
+
+                            <span>Telephone</span>
+
+                            <strong>
+                                <%= customer.PhoneNumber ||
+                                    'Not recorded' %>
+                            </strong>
+
+                        </div>
+
+                        <div class="customer-field full-width">
+
+                            <span>Registered Address</span>
+
+                            <strong>
+                                <%= [
+                                    customer.StreetAddress,
+                                    customer.City,
+                                    customer.Province,
+                                    customer.PostalCode
+                                ].filter(Boolean).join(', ')
+                                    || 'Not recorded' %>
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    <div class="registration-bottom">
+
+                        <span>Vehicles Registered</span>
+
+                        <strong>
+                            <%= String(customer.vehicles.length)
+                                .padStart(2, '0') %>
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- Registered vehicle collection -->
+            <div class="collection-heading">
+
+                <h3>Vehicle Collection</h3>
+
+                <span>
+                    <%= customer.vehicles.length %> registered
+                    <%= customer.vehicles.length === 1
+                        ? 'vehicle' : 'vehicles' %>
+                </span>
+
+            </div>
+
+            <% if (customer.vehicles.length > 0) { %>
+
+                <div class="registry-vehicles">
+
+                    <% customer.vehicles.forEach((vehicle, index) => { %>
+
+                        <article class="registry-vehicle">
+
+                            <div class="registry-vehicle-banner
+                                <%= index % 2 === 0
+                                    ? 'bluebell' : 'lavender' %>">
+
+                                <%- include('partials/mini-cars') %>
+
+                                <div class="registry-vehicle-name">
+
+                                    <span><%= vehicle.Year %></span>
+
+                                    <h3>
+                                        <%= vehicle.Make %>
+                                        <%= vehicle.Model %>
+                                    </h3>
+
+                                    <p>
+                                        <%= vehicle.Mileage == null
+                                            ? 'Mileage not recorded'
+                                            : Number(vehicle.Mileage)
+                                                .toLocaleString('en-CA')
+                                                + ' km' %>
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="registry-vehicle-body">
+
+                                <span class="registration-label">
+                                    Vehicle Identification Number
+                                </span>
+
+                                <div class="registry-vin">
+                                    <%= vehicle.VIN %>
+                                </div>
+
+                                <p class="registry-first-service">
+                                    First service:
+                                    <%= vehicle.FirstServiceDate ||
+                                        'Not recorded' %>
+                                </p>
+
+                                <a class="registry-service-link"
+                                   href="/features/option6?vin=<%= encodeURIComponent(vehicle.VIN) %>">
+
+                                    View Service History
+
+                                    <span aria-hidden="true">→</span>
+
+                                </a>
+
+                            </div>
+
+                        </article>
+
+                    <% }); %>
+
+                </div>
+
+            <% } else { %>
+
+                <div class="card">
+
+                    <p>
+                        No vehicles are currently registered
+                        to this customer.
+                    </p>
+
+                </div>
+
+            <% } %>
+
+        </div>
+
+    <% }); %>
+
+    <!-- No matching customers -->
+    <% if (search !== '' && customers.length === 0) { %>
+
+        <div class="card">
+
+            <h3>No Customers Found</h3>
+
+            <p>
+                No customers match "<%= search %>".
+                Try another name or email address.
+            </p>
+
+        </div>
+
+    <% } %>
+
+    <!-- Independent database verification -->
+    <% if (search !== '' && customers.length > 0) { %>
+
+        <div class="card validation-card">
+
+            <h3>Workshop Verification</h3>
+
+            <p>
+                Original customer and vehicle relationships
+                retrieved directly from the database.
+            </p>
+
+            <p>
+                Matching customer records:
+                <%= new Set(verificationRecords.map(
+                    record => record.CustomerEmail
+                )).size %>
+            </p>
+
+            <p>
+                Registered vehicle records:
+                <%= verificationRecords.filter(
+                    record => record.VIN !== null
+                ).length %>
+            </p>
+
+            <div style="overflow-x: auto;">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Customer Email</th>
+                            <th>Customer Name</th>
+                            <th>VIN</th>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>Year</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <% verificationRecords.forEach(record => { %>
+
+                            <tr>
+
+                                <td>
+                                    <%= record.CustomerEmail %>
+                                </td>
+
+                                <td>
+                                    <%= record.FirstName %>
+                                    <%= record.LastName %>
+                                </td>
+
+                                <td>
+                                    <%= record.VIN ||
+                                        'No registered vehicle' %>
+                                </td>
+
+                                <td><%= record.Make || '—' %></td>
+
+                                <td><%= record.Model || '—' %></td>
+
+                                <td><%= record.Year || '—' %></td>
+
+                            </tr>
+
+                        <% }); %>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    <% } %>
+
+    <a href="/" class="btn">← Back to Dashboard</a>
+
+    <div class="garage-signature">
+        AUTOSERVICE DB · CUSTOMER REGISTRY
+    </div>
+
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,118 @@
+
+<svg class="garage-gauges"
+     viewBox="0 0 330 240"
+     xmlns="http://www.w3.org/2000/svg"
+     aria-hidden="true">
+
+    <defs>
+        <linearGradient id="gaugeMetal"
+                        x1="0%" y1="0%"
+                        x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f5e9f4"/>
+            <stop offset="50%" stop-color="#817b9b"/>
+            <stop offset="100%" stop-color="#dbbddc"/>
+        </linearGradient>
+    </defs>
+
+    <!-- Main speedometer -->
+    <g transform="translate(215 115)">
+
+        <circle cx="4" cy="5" r="103"
+                fill="#451616" opacity="0.15"/>
+
+        <circle r="103" fill="url(#gaugeMetal)"/>
+        <circle r="96" fill="#200808"/>
+        <circle r="89" fill="#301921"
+                stroke="#99a5cd" stroke-width="1.5"/>
+
+        <!-- Speedometer markings -->
+        <% for (let i = 0; i <= 32; i++) { %>
+            <line x1="0" y1="-82"
+                  x2="0"
+                  y2="<%= i % 4 === 0 ? -68 : -77 %>"
+                  stroke="<%= i > 27 ? '#f47358' : '#dbbddc' %>"
+                  stroke-width="<%= i % 4 === 0 ? 2.5 : 1.2 %>"
+                  transform="rotate(<%= -135 + i * 270 / 32 %>)"/>
+        <% } %>
+
+        <!-- Speedometer numbers -->
+        <% for (let i = 0; i <= 8; i++) {
+            const angle = (-135 + i * 33.75) * Math.PI / 180;
+        %>
+            <text x="<%= Math.sin(angle) * 55 %>"
+                  y="<%= -Math.cos(angle) * 55 + 4 %>"
+                  fill="#dbbddc"
+                  font-size="11"
+                  text-anchor="middle"
+                  font-family="Arial">
+                <%= i * 30 %>
+            </text>
+        <% } %>
+
+        <!-- Needle -->
+        <path d="M-5 14 L39 -59 L5 14 Z"
+              fill="#f47358"/>
+
+        <circle r="9" fill="url(#gaugeMetal)"/>
+        <circle r="4" fill="#200808"/>
+
+        <text y="32"
+              fill="#dbbddc"
+              font-size="12"
+              text-anchor="middle">
+            km/h
+        </text>
+
+        <!-- Decorative odometer -->
+        <rect x="-35" y="44"
+              width="70" height="21"
+              rx="3" fill="#200808"/>
+
+        <text y="59"
+              fill="#99a5cd"
+              font-size="13"
+              font-family="monospace"
+              letter-spacing="4"
+              text-anchor="middle">
+            00006
+        </text>
+
+    </g>
+
+    <!-- Smaller fuel gauge -->
+    <g transform="translate(60 175)">
+
+        <circle cx="3" cy="4" r="44"
+                fill="#451616" opacity="0.15"/>
+
+        <circle r="44" fill="url(#gaugeMetal)"/>
+        <circle r="39" fill="#200808"/>
+        <circle r="34" fill="#301921"/>
+
+        <path d="M-27 12 A30 30 0 1 1 27 12"
+              fill="none"
+              stroke="#dbbddc"
+              stroke-width="1.5"/>
+
+        <% for (let i = 0; i <= 6; i++) { %>
+            <line x1="0" y1="-30"
+                  x2="0" y2="-24"
+                  stroke="#dbbddc"
+                  stroke-width="1.5"
+                  transform="rotate(<%= -110 + i * 220 / 6 %>)"/>
+        <% } %>
+
+        <path d="M-2 4 L15 -21 L2 4 Z"
+              fill="#f47358"/>
+
+        <circle r="5" fill="url(#gaugeMetal)"/>
+
+        <text x="-20" y="22"
+              fill="#dbbddc" font-size="10">E</text>
+
+        <text x="15" y="22"
+              fill="#dbbddc" font-size="10">F</text>
+
+    </g>
+
+</svg>

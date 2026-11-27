@@ -1,0 +1,937 @@
+
+
+/* Rachel - Options 5, 6 and 7 */
+
+.rachel-page {
+    --peach: #f47358;
+    --burnt-toast: #200808;
+    --english-breakfast: #451616;
+    --violet: #dbbddc;
+    --bluebell: #99a5cd;
+
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    color: var(--burnt-toast);
+}
+
+/* Automotive hero banner */
+
+.rachel-page .hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(115deg, #99a5cd, #dbbddc);
+    color: var(--burnt-toast);
+    padding: 45px 40px 60px;
+    border-radius: 18px;
+    min-height: 260px;
+}
+
+.rachel-page .hero h1 {
+    color: var(--burnt-toast);
+    font-size: clamp(32px, 4vw, 54px);
+    margin: 18px 0;
+}
+
+.rachel-page .hero p {
+    color: var(--english-breakfast);
+    max-width: 48%;
+}
+
+.rachel-page .hero-tag {
+    background: var(--english-breakfast);
+    color: var(--violet);
+    letter-spacing: 2px;
+}
+
+.rachel-page .hero h1::after {
+    content: "";
+    display: block;
+    width: 55px;
+    height: 4px;
+    margin-top: 16px;
+    background: var(--peach);
+}
+
+/* Checkered racing strip */
+
+.rachel-page .racing-strip {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 24px;
+    z-index: 5;
+    background: repeating-conic-gradient(
+        #451616 0% 25%,
+        #dbbddc 0% 50%
+    ) 0 0 / 24px 24px;
+}
+
+/* Classic muscle car illustration */
+
+.rachel-page .garage-car {
+    position: absolute;
+    right: 4%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44%;
+    max-width: 480px;
+}
+
+/* Dashboard information cards */
+
+.rachel-page .garage-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.rachel-page .garage-stat {
+    background: var(--english-breakfast);
+    color: white;
+    padding: 22px;
+    border-radius: 12px;
+    border-bottom: 4px solid var(--bluebell);
+    transition: transform 0.2s ease;
+}
+
+.rachel-page .garage-stat:hover {
+    transform: translateY(-4px);
+}
+
+.rachel-page .stat-number {
+    display: block;
+    color: var(--bluebell);
+    font-size: 13px;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+}
+
+.rachel-page .garage-stat h3 {
+    color: var(--violet);
+    margin: 0;
+}
+
+.rachel-page .garage-stat p {
+    color: white;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+/* Search forms and results */
+
+.rachel-page .card {
+    background: #faf8fc;
+    border: 1px solid var(--bluebell);
+    border-radius: 14px;
+    padding: 28px;
+}
+
+.rachel-page .card h3 {
+    color: var(--english-breakfast);
+}
+
+.rachel-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.rachel-page select,
+.rachel-page input {
+    background: #f0edf6;
+    border: 1px solid var(--bluebell);
+    border-radius: 8px;
+    padding: 13px;
+    color: var(--burnt-toast);
+}
+
+.rachel-page .btn {
+    background: var(--bluebell);
+    color: var(--burnt-toast);
+    border: none;
+    border-radius: 8px;
+    padding: 13px 22px;
+    font-weight: 600;
+    align-self: flex-start;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.rachel-page .btn:hover {
+    background: var(--violet);
+    transform: translateY(-2px);
+}
+
+/* Results tables */
+
+.rachel-page table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.rachel-page th {
+    background: var(--english-breakfast);
+    color: white;
+    padding: 14px;
+}
+
+.rachel-page td {
+    padding: 14px;
+    border-bottom: 1px solid var(--bluebell);
+}
+
+.rachel-page tbody tr:nth-child(even) {
+    background: #eeebf5;
+}
+
+.rachel-page tbody tr:hover {
+    background: #e5d5e9;
+}
+
+/* Database verification */
+
+.rachel-page .validation-card {
+    background: linear-gradient(120deg, #dbbddc, #e7ddec);
+    border-left: 5px solid var(--english-breakfast);
+}
+
+.rachel-page .garage-signature {
+    background: var(--burnt-toast);
+    color: var(--violet);
+    text-align: center;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+/* Smaller screens */
+
+@media (max-width: 700px) {
+    .rachel-page .garage-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .rachel-page .garage-car {
+        position: static;
+        transform: none;
+        width: 100%;
+    }
+
+    .rachel-page .hero p {
+        max-width: 100%;
+    }
+
+    .rachel-page .card {
+        overflow-x: auto;
+    }
+}
+
+/* Matching parts counter */
+
+.rachel-page #partCount {
+    background: var(--violet);
+    color: var(--english-breakfast);
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+
+
+/* =========================================
+   OPTION 6 - VEHICLE SERVICE HISTORY
+   ========================================= */
+
+/* Hero banner */
+
+.rachel-page .service-hero {
+    background: linear-gradient(
+        110deg, #dbbddc 0%, #99a5cd 100%
+    );
+    min-height: 290px;
+}
+
+.service-hero h1 {
+    position: relative;
+    z-index: 2;
+    line-height: 1.1;
+}
+
+.service-hero p {
+    position: relative;
+    z-index: 2;
+}
+
+/* Vintage dashboard gauges */
+
+.service-page .garage-gauges {
+    position: absolute;
+    right: 3%;
+    top: 46%;
+    transform: translateY(-50%);
+    width: 40%;
+    max-width: 370px;
+    height: auto;
+    pointer-events: none;
+}
+
+/* Vehicle finder */
+
+.service-page .vehicle-search {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.service-page .vehicle-filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.service-page .vehicle-filters div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.service-page select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid #99a5cd;
+    border-radius: 7px;
+    background: #f5eff7;
+    color: #451616;
+}
+
+.service-page #vehicleCount {
+    font-size: 13px;
+    color: #451616;
+    margin: 0;
+}
+
+.service-page .vehicle-search .btn {
+    align-self: flex-start;
+    margin-top: 5px;
+}
+
+/* Vehicle specification dashboard */
+
+.service-page .vehicle-profile {
+    background: #200808;
+    border: 1px solid #451616;
+    border-radius: 14px;
+    padding: 30px;
+    color: #dbbddc;
+    box-shadow: 0 5px 15px rgba(32, 8, 8, 0.12);
+}
+
+.service-page .profile-label {
+    color: #99a5cd;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.service-page .vehicle-profile h2 {
+    color: #dbbddc;
+    font-size: 32px;
+    margin: 10px 0 22px;
+}
+
+/* VIN identification plate */
+
+.service-page .vin-plate {
+    background: #dbbddc;
+    color: #200808;
+    border: 2px solid #99a5cd;
+    border-radius: 6px;
+    padding: 14px;
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+.service-page .vin-plate span {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+}
+
+.service-page .vin-plate strong {
+    font-family: monospace;
+    font-size: 22px;
+    letter-spacing: 3px;
+    overflow-wrap: anywhere;
+}
+
+/* Odometer-style statistics */
+
+.service-page .vehicle-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.service-page .vehicle-metric {
+    background: #451616;
+    border: 1px solid rgba(219, 189, 220, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.service-page .vehicle-metric span {
+    font-size: 12px;
+    color: #dbbddc;
+}
+
+.service-page .vehicle-metric strong {
+    font-family: monospace;
+    font-size: clamp(18px, 3vw, 28px);
+    color: #ffffff;
+    overflow-wrap: anywhere;
+}
+
+.service-page .vehicle-metric small {
+    color: #99a5cd;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.service-page .first-service {
+    color: #dbbddc;
+    font-size: 13px;
+    margin: 20px 0 0;
+}
+
+/* Service logbook */
+
+.service-page .logbook-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.service-page .logbook-heading h3 {
+    margin: 0;
+}
+
+.service-page .logbook-heading span {
+    color: #451616;
+    font-size: 13px;
+}
+
+.service-page .service-timeline {
+    display: flex;
+    flex-direction: column;
+}
+
+.service-page .service-entry {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 18px;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(69, 22, 22, 0.15);
+}
+
+.service-page .service-entry:last-child {
+    border-bottom: none;
+}
+
+.service-page .service-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #dbbddc;
+    color: #451616;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-page .service-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.service-page .service-date {
+    font-size: 12px;
+    color: #74627c;
+}
+
+.service-page .service-details h4 {
+    color: #200808;
+    font-size: 17px;
+    margin: 0;
+}
+
+.service-page .service-reference {
+    color: #74627c;
+    font-size: 11px;
+}
+
+.service-page .service-cost {
+    color: #451616;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+/* Appointment status indicators */
+
+.service-page .service-status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 5px;
+    background: #e7dce9;
+    color: #451616;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.service-page .service-status.completed {
+    background: #dcecdf;
+    color: #326044;
+}
+
+.service-page .service-status.scheduled,
+.service-page .service-status.pending {
+    background: #dce3f5;
+    color: #3e507c;
+}
+
+.service-page .service-status.cancelled,
+.service-page .service-status.canceled {
+    background: #f4d6d0;
+    color: #8c3930;
+}
+
+.service-page .service-status.in-progress {
+    background: #f5e5cc;
+    color: #80591f;
+}
+
+/* Smaller screens */
+
+@media (max-width: 700px) {
+
+    .service-page .garage-gauges {
+        width: 36%;
+        right: 2%;
+    }
+
+    .rachel-page .service-hero {
+        min-height: 240px;
+    }
+
+    .service-page .vehicle-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .service-page .vehicle-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .service-page .vehicle-profile {
+        padding: 20px;
+    }
+
+    .service-page .vin-plate strong {
+        font-size: 16px;
+        letter-spacing: 1px;
+    }
+
+    .service-page .service-entry {
+        grid-template-columns: 40px minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .service-page .service-cost {
+        grid-column: 2;
+    }
+
+    .service-page .service-icon {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+
+/* =========================================
+   OPTION 7 - CUSTOMER REGISTRY
+   ========================================= */
+
+/* Hero banner */
+
+.rachel-page .registry-hero {
+    background: linear-gradient(
+        110deg, #99a5cd, #dbbddc
+    );
+    min-height: 290px;
+}
+
+.registry-page .registry-graphic {
+    position: absolute;
+    right: 4%;
+    top: 45%;
+    transform: translateY(-50%);
+    width: 40%;
+    max-width: 370px;
+}
+
+/* Customer search */
+
+.registry-page .registry-search {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.registry-page .registry-search input {
+    width: 100%;
+    box-sizing: border-box;
+    background: #f2edf5;
+    border: 1px solid #99a5cd;
+    border-radius: 8px;
+    padding: 14px;
+    color: #451616;
+    font-size: 15px;
+}
+
+.registry-page .registry-search input:focus {
+    outline: 2px solid #99a5cd;
+}
+
+.registry-page .registry-search button {
+    width: 100%;
+}
+
+.registry-page .customer-count {
+    margin-top: 15px;
+    color: #74627c;
+    font-size: 14px;
+}
+
+/* Customer registration card */
+
+.registry-page .customer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.registry-page .customer-registration {
+    background: #451616;
+    border-radius: 14px;
+    padding: 12px;
+    box-shadow: 0 6px 18px rgba(32, 8, 8, 0.12);
+}
+
+.registry-page .registration-paper {
+    background: #f1e6dc;
+    border: 1px solid #b89d9d;
+    border-radius: 8px;
+    padding: 28px;
+    color: #451616;
+}
+
+.registry-page .registration-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #b89d9d;
+    padding-bottom: 16px;
+    margin-bottom: 22px;
+}
+
+.registry-page .registration-heading h3 {
+    margin: 5px 0 0;
+    color: #451616;
+    font-family: Georgia, serif;
+    font-size: 24px;
+}
+
+.registry-page .registration-label {
+    display: block;
+    color: #81738c;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.registry-page .registry-stamp {
+    width: 75px;
+    height: 75px;
+    transform: rotate(-12deg);
+}
+
+.registry-page .registration-name h2 {
+    font-family: Georgia, serif;
+    font-size: 36px;
+    color: #200808;
+    margin: 8px 0 24px;
+}
+
+/* Customer information */
+
+.registry-page .customer-information {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.registry-page .customer-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+}
+
+.registry-page .customer-field span {
+    color: #81738c;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.registry-page .customer-field strong {
+    font-size: 15px;
+    font-weight: 500;
+    color: #451616;
+    overflow-wrap: anywhere;
+}
+
+.registry-page .customer-field.full-width {
+    grid-column: 1 / -1;
+}
+
+.registry-page .registration-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #b89d9d;
+    margin-top: 24px;
+    padding-top: 18px;
+}
+
+.registry-page .registration-bottom span {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.registry-page .registration-bottom strong {
+    font-family: Georgia, serif;
+    font-size: 30px;
+    color: #451616;
+}
+
+/* Vehicle collection */
+
+.registry-page .collection-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.registry-page .collection-heading h3 {
+    font-family: Georgia, serif;
+    font-size: 25px;
+    color: #451616;
+    margin: 0;
+}
+
+.registry-page .collection-heading span {
+    color: #74627c;
+    font-size: 13px;
+}
+
+.registry-page .registry-vehicles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.registry-page .registry-vehicle {
+    background: #ffffff;
+    border: 1px solid #99a5cd;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(32, 8, 8, 0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.registry-page .registry-vehicle:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(32, 8, 8, 0.12);
+}
+
+/* Alternating little car backgrounds */
+
+.registry-page .registry-vehicle-banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    min-height: 130px;
+}
+
+.registry-page .registry-vehicle-banner.bluebell {
+    background: #99a5cd;
+}
+
+.registry-page .registry-vehicle-banner.lavender {
+    background: #dbbddc;
+}
+
+.registry-page .registry-car {
+    width: 42%;
+    max-width: 180px;
+    flex-shrink: 0;
+    transition: transform 0.25s;
+}
+
+.registry-page .registry-vehicle:hover .registry-car {
+    transform: translateX(5px);
+}
+
+.registry-page .registry-vehicle-name {
+    flex: 1;
+    min-width: 0;
+}
+
+.registry-page .registry-vehicle-name span {
+    font-size: 12px;
+    color: #451616;
+}
+
+.registry-page .registry-vehicle-name h3 {
+    font-family: Georgia, serif;
+    font-size: 23px;
+    color: #200808;
+    margin: 5px 0;
+    overflow-wrap: anywhere;
+}
+
+.registry-page .registry-vehicle-name p {
+    font-size: 13px;
+    color: #451616;
+    margin: 5px 0;
+}
+
+/* VIN plate and vehicle information */
+
+.registry-page .registry-vehicle-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+}
+
+.registry-page .registry-vin {
+    background: #f2edf5;
+    border: 1px solid #dbbddc;
+    border-radius: 5px;
+    padding: 12px;
+    text-align: center;
+    font-family: monospace;
+    font-size: 15px;
+    font-weight: bold;
+    color: #451616;
+    letter-spacing: 1px;
+    overflow-wrap: anywhere;
+}
+
+.registry-page .registry-first-service {
+    font-size: 13px;
+    color: #74627c;
+    margin: 0;
+}
+
+/* Link to Option 6 */
+
+.registry-page .registry-service-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 1px solid #dbbddc;
+    color: #451616;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.registry-page .registry-service-link span {
+    font-size: 22px;
+    transition: transform 0.2s;
+}
+
+.registry-page .registry-service-link:hover {
+    color: #a64b39;
+}
+
+.registry-page .registry-service-link:hover span {
+    transform: translateX(5px);
+}
+
+/* Responsive layout */
+
+@media (max-width: 850px) {
+
+    .registry-page .registry-vehicles {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .rachel-page .registry-hero {
+        min-height: 330px;
+    }
+
+    .registry-page .registry-graphic {
+        width: 45%;
+        right: 2%;
+        top: 60%;
+    }
+
+    .registry-page .registration-paper {
+        padding: 18px;
+    }
+
+    .registry-page .customer-information {
+        grid-template-columns: 1fr;
+    }
+
+    .registry-page .registration-name h2 {
+        font-size: 28px;
+    }
+
+    .registry-page .registry-vehicle-name h3 {
+        font-size: 19px;
+    }
+
+    .registry-page .collection-heading {
+        flex-wrap: wrap;
+    }
+
+}
+

@@ -1,0 +1,432 @@
+
+<%- include('partials/header') %>
+
+<link rel="stylesheet" href="/css/rachel-features.css">
+
+<div class="rachel-page service-page">
+
+    <section class="hero service-hero">
+
+        <span class="hero-tag">Workshop Collection / 06</span>
+
+        <h1>Vehicle<br>Service History.</h1>
+
+        <p>Maintenance records &amp; vehicle history.</p>
+
+        <%- include('partials/speedometer') %>
+
+        <div class="racing-strip" aria-hidden="true"></div>
+
+    </section>
+
+    <!-- Vehicle search -->
+    <div class="card">
+
+        <h3>Vehicle Finder</h3>
+
+        <form action="/features/option6" method="GET"
+              class="vehicle-search">
+
+            <div class="vehicle-filters">
+
+                <div>
+                    <label for="make">Vehicle Make</label>
+
+                    <select id="make">
+                        <option value="">All Makes</option>
+
+                        <% const makes = [...new Set(
+                            vehicles.map(vehicle => vehicle.Make)
+                        )]; %>
+
+                        <% makes.forEach(make => { %>
+                            <option value="<%= make %>">
+                                <%= make %>
+                            </option>
+                        <% }); %>
+
+                    </select>
+                </div>
+
+                <div>
+                    <label for="model">Vehicle Model</label>
+
+                    <select id="model">
+                        <option value="">All Models</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <label for="vin">Vehicle Identification Number</label>
+
+            <select name="vin" id="vin" required>
+
+                <option value="">Select a vehicle</option>
+
+                <% vehicles.forEach(vehicle => { %>
+
+                    <option value="<%= vehicle.VIN %>"
+                        data-make="<%= vehicle.Make %>"
+                        data-model="<%= vehicle.Model %>"
+                        <%= vin === vehicle.VIN ? 'selected' : '' %>>
+
+                        <%= vehicle.VIN %> —
+                        <%= vehicle.Year %>
+                        <%= vehicle.Make %>
+                        <%= vehicle.Model %>
+
+                    </option>
+
+                <% }); %>
+
+            </select>
+
+            <p id="vehicleCount"></p>
+
+            <button type="submit" class="btn">
+                View Service History
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- Vehicle filtering -->
+    <script>
+
+        const makeSelect = document.getElementById('make');
+        const modelSelect = document.getElementById('model');
+        const vinSelect = document.getElementById('vin');
+        const vehicleCount = document.getElementById('vehicleCount');
+
+        const allVehicles = Array.from(vinSelect.options).slice(1);
+
+        function filterModels() {
+
+            const selectedMake = makeSelect.value;
+            const previousModel = modelSelect.value;
+
+            const matchingVehicles = allVehicles.filter(vehicle =>
+                selectedMake === '' ||
+                vehicle.dataset.make === selectedMake
+            );
+
+            const models = [...new Set(
+                matchingVehicles.map(vehicle => vehicle.dataset.model)
+            )].sort();
+
+            modelSelect.replaceChildren(
+                new Option('All Models', '')
+            );
+
+            models.forEach(model => {
+                modelSelect.add(new Option(model, model));
+            });
+
+            if (models.includes(previousModel)) {
+                modelSelect.value = previousModel;
+            }
+        }
+
+        function filterVehicles() {
+
+            const selectedMake = makeSelect.value;
+            const selectedModel = modelSelect.value;
+            const previousVIN = vinSelect.value;
+
+            vinSelect.replaceChildren(
+                new Option('Select a vehicle', '')
+            );
+
+            let count = 0;
+
+            allVehicles.forEach(vehicle => {
+
+                const makeMatches =
+                    selectedMake === '' ||
+                    vehicle.dataset.make === selectedMake;
+
+                const modelMatches =
+                    selectedModel === '' ||
+                    vehicle.dataset.model === selectedModel;
+
+                if (makeMatches && modelMatches) {
+                    vinSelect.appendChild(vehicle);
+                    count++;
+                }
+
+            });
+
+            vinSelect.value = previousVIN;
+
+            if (vinSelect.selectedIndex === -1) {
+                vinSelect.value = '';
+            }
+
+            vehicleCount.textContent =
+                count + ' matching vehicles';
+        }
+
+        makeSelect.addEventListener('change', () => {
+            filterModels();
+            filterVehicles();
+        });
+
+        modelSelect.addEventListener('change', filterVehicles);
+
+        // Preserve the selected vehicle after searching
+        const selectedOption = allVehicles.find(vehicle =>
+            vehicle.value === vinSelect.value
+        );
+
+        if (selectedOption) {
+            makeSelect.value = selectedOption.dataset.make;
+        }
+
+        filterModels();
+
+        if (selectedOption) {
+            modelSelect.value = selectedOption.dataset.model;
+        }
+
+        filterVehicles();
+
+    </script>
+
+    <% if (selectedVehicle) { %>
+
+        <!-- Vehicle specification dashboard -->
+        <section class="vehicle-profile">
+
+            <span class="profile-label">Vehicle Profile</span>
+
+            <h2>
+                <%= selectedVehicle.Year %>
+                <%= selectedVehicle.Make %>
+                <%= selectedVehicle.Model %>
+            </h2>
+
+            <div class="vin-plate">
+                <span>Vehicle Identification Number</span>
+                <strong><%= selectedVehicle.VIN %></strong>
+            </div>
+
+            <div class="vehicle-metrics">
+
+                <div class="vehicle-metric">
+                    <span>Mileage</span>
+                    <strong>
+                        <%= selectedVehicle.Mileage == null
+                            ? 'N/A'
+                            : Number(selectedVehicle.Mileage)
+                                .toLocaleString('en-CA') %>
+                    </strong>
+                    <small>km</small>
+                </div>
+
+                <div class="vehicle-metric">
+                    <span>Appointments</span>
+                    <strong>
+                        <%= String(appointments.length)
+                            .padStart(2, '0') %>
+                    </strong>
+                    <small>visits</small>
+                </div>
+
+                <div class="vehicle-metric">
+                    <span>Total Cost</span>
+                    <strong>
+                        $<%= totalCost.toFixed(2) %>
+                    </strong>
+                    <small>CAD</small>
+                </div>
+
+            </div>
+
+            <p class="first-service">
+                First service:
+                <%= selectedVehicle.FirstServiceDate || 'Not recorded' %>
+            </p>
+
+        </section>
+
+        <!-- Service history -->
+        <div class="card">
+
+            <div class="logbook-heading">
+                <h3>Service Logbook</h3>
+                <span><%= appointments.length %> records</span>
+            </div>
+
+            <% if (appointments.length > 0) { %>
+
+                <div class="service-timeline">
+
+                    <% appointments.forEach(appointment => { %>
+
+                        <div class="service-entry">
+
+                            <div class="service-icon">
+
+                                <svg width="22" height="22"
+                                     viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="1.8"
+                                     stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     aria-hidden="true">
+
+                                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4
+                                    l1.6 1.6a1 1 0 0 0 1.4 0
+                                    l3.8-3.8a6 6 0 0 1-7.9 7.9
+                                    l-7 7a2.1 2.1 0 0 1-3-3
+                                    l7-7a6 6 0 0 1 7.9-7.9z"/>
+
+                                </svg>
+
+                            </div>
+
+                            <div class="service-details">
+
+                                <span class="service-date">
+                                    <%= appointment.AppointmentDate %>
+                                    · <%= appointment.Time %>
+                                </span>
+
+                                <h4>
+                                    <%= appointment.Services ||
+                                        'No services recorded' %>
+                                </h4>
+
+                                <span class="service-reference">
+                                    Appointment #<%= appointment.AppointmentID %>
+                                </span>
+
+                                <span class="service-status
+                                    <%= String(appointment.Status || '')
+                                        .toLowerCase()
+                                        .replace(/[^a-z0-9]+/g, '-') %>">
+
+                                    <%= appointment.Status || 'Unknown' %>
+
+                                </span>
+
+                            </div>
+
+                            <div class="service-cost">
+                                <% if (appointment.TotalCost != null) { %>
+                                    $<%= Number(appointment.TotalCost)
+                                        .toFixed(2) %>
+                                <% } else { %>
+                                    N/A
+                                <% } %>
+                            </div>
+
+                        </div>
+
+                    <% }); %>
+
+                </div>
+
+            <% } else { %>
+
+                <p>No service appointments found for this vehicle.</p>
+
+            <% } %>
+
+        </div>
+
+        <!-- Independent database verification -->
+        <div class="card validation-card">
+
+            <h3>Workshop Verification</h3>
+
+            <p>Original appointment records retrieved directly
+               from the database.</p>
+
+            <p>
+                Selected VIN:
+                <strong><%= selectedVehicle.VIN %></strong>
+            </p>
+
+            <p>
+                Database appointment count:
+                <%= verificationRecords.length %>
+            </p>
+
+            <p>
+                Displayed appointment count:
+                <%= appointments.length %>
+            </p>
+
+            <% if (verificationRecords.length > 0) { %>
+
+                <div style="overflow-x: auto;">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Appointment ID</th>
+                                <th>VIN</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Total Cost</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <% verificationRecords.forEach(record => { %>
+
+                                <tr>
+                                    <td><%= record.AppointmentID %></td>
+                                    <td><%= record.VIN %></td>
+                                    <td><%= record.AppointmentDate %></td>
+                                    <td><%= record.Time %></td>
+                                    <td><%= record.Status %></td>
+                                    <td>
+                                        <%= record.TotalCost == null
+                                            ? 'N/A'
+                                            : '$' + Number(record.TotalCost)
+                                                .toFixed(2) %>
+                                    </td>
+                                </tr>
+
+                            <% }); %>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            <% } else { %>
+
+                <p>No original appointment records found.</p>
+
+            <% } %>
+
+        </div>
+
+    <% } else if (vin !== '') { %>
+
+        <div class="card">
+            <h3>Vehicle Not Found</h3>
+            <p>No vehicle matches the selected VIN.</p>
+        </div>
+
+    <% } %>
+
+    <a href="/" class="btn">← Back to Dashboard</a>
+
+    <div class="garage-signature">
+        AUTOSERVICE DB · SERVICE CENTER
+    </div>
+
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,247 @@
+
+
+<%- include('partials/header') %>
+
+<link rel="stylesheet" href="/css/rachel-features.css">
+
+<div class="rachel-page">
+
+<section class="hero">
+    <span class="hero-tag">Workshop Collection / 05</span>
+
+    <h1>Supplier Lookup.</h1>
+
+    <p>Parts &amp; Procurement — Find the right parts
+       and connect with the right suppliers.</p>
+
+    <%- include('partials/car-graphic') %>
+
+<div class="racing-strip" aria-hidden="true"></div>
+
+</section>
+
+<div class="garage-stats">
+
+    <div class="garage-stat">
+        <span class="stat-number">01 / INVENTORY</span>
+        <h3>Parts Inventory</h3>
+        <p><%= parts.length %> available part records</p>
+    </div>
+
+    <div class="garage-stat">
+        <span class="stat-number">02 / PROCUREMENT</span>
+        <h3>Supplier Network</h3>
+        <p>Automotive parts and distributors</p>
+    </div>
+
+    <div class="garage-stat">
+        <span class="stat-number">03 / SYSTEM</span>
+        <h3>Live Records</h3>
+        <p>Connected to MySQL</p>
+    </div>
+
+</div>
+
+
+
+
+<div class="card">
+    <h3>Parts Search</h3>
+
+    <form action="/features/option5" method="GET">
+
+        <label for="partName">Part Name:</label>
+
+        <select name="partName" id="partName">
+
+            <option value="">All Parts</option>
+
+            <% const partNames = [...new Set(parts.map(part => part.Name))]; %>
+
+            <% partNames.forEach(name => { %>
+                <option value="<%= name %>"
+                    <%= partName === name ? 'selected' : '' %>>
+                    <%= name %>
+                </option>
+            <% }); %>
+
+        </select>
+
+        <label for="partNumber">Part Number:</label>
+
+        <select name="partNumber" id="partNumber" required>
+
+            <option value="">Select a part number</option>
+
+            <option value="all"
+                <%= partNumber === 'all' ? 'selected' : '' %>>
+                All Matching Part Numbers
+            </option>
+
+            <% parts.forEach(part => { %>
+                <option value="<%= part.PartNumber %>"
+                    data-name="<%= part.Name %>"
+                    <%= partNumber === part.PartNumber ? 'selected' : '' %>>
+
+                    <%= part.PartNumber %> - <%= part.Name %>
+
+                </option>
+            <% }); %>
+
+        </select>
+
+        <p id="partCount"></p>
+
+        <button type="submit" class="btn">
+            Find Suppliers
+        </button>
+
+    </form>
+</div>
+
+<script>
+    const partName = document.getElementById('partName');
+    const partNumber = document.getElementById('partNumber');
+    const partCount = document.getElementById('partCount');
+
+    const allParts = Array.from(partNumber.options).slice(2);
+
+    function filterParts() {
+        const selectedName = partName.value;
+        const previousNumber = partNumber.value;
+
+        partNumber.replaceChildren(
+            new Option('Select a part number', ''),
+            new Option('All Matching Part Numbers', 'all')
+        );
+
+        let count = 0;
+
+        allParts.forEach(part => {
+            if (selectedName === '' ||
+                part.dataset.name === selectedName) {
+
+                partNumber.appendChild(part);
+                count++;
+            }
+        });
+
+        partNumber.value = previousNumber;
+
+        if (partNumber.selectedIndex === -1) {
+            partNumber.value = 'all';
+        }
+
+        partCount.textContent = count + ' matching parts';
+    }
+
+    partName.addEventListener('change', () => {
+        filterParts();
+        partNumber.value = 'all';
+    });
+
+    filterParts();
+</script>
+
+<% if (partNumber !== '') { %>
+
+    <div class="card">
+        <h3>Supplier Comparison</h3>
+
+        <% if (suppliers.length > 0) { %>
+
+            <p>
+                Matching supplier-part records:
+                <%= suppliers.length %>
+            </p>
+
+            <p>
+                Unique suppliers:
+                <%= new Set(suppliers.map(s => s.CompanyName)).size %>
+            </p>
+
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Part Number</th>
+                            <th>Part Name</th>
+                            <th>Manufacturer</th>
+                            <th>Supplier</th>
+                            <th>Contact</th>
+                            <th>Unit Price</th>
+                            <th>In Stock</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% suppliers.forEach(supplier => { %>
+                            <tr>
+                                <td><%= supplier.PartNumber %></td>
+                                <td><%= supplier.Name %></td>
+                                <td><%= supplier.Manufacturer %></td>
+                                <td><%= supplier.CompanyName %></td>
+                                <td><%= supplier.ContactInformation %></td>
+                                <td>$<%= supplier.UnitPrice %></td>
+                                <td><%= supplier.QuantityInStock %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+
+        <% } else { %>
+            <p>No matching suppliers found.</p>
+        <% } %>
+    </div>
+
+    <div class="card validation-card">
+        <h3>Workshop Verification - Part Records</h3>
+
+        <p>Matching database records: <%= selectedParts.length %></p>
+
+        <% if (selectedParts.length > 0) { %>
+
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Part Number</th>
+                            <th>Part Name</th>
+                            <th>Manufacturer</th>
+                            <th>Unit Price</th>
+                            <th>Quantity in Stock</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% selectedParts.forEach(part => { %>
+                            <tr>
+                                <td><%= part.PartNumber %></td>
+                                <td><%= part.Name %></td>
+                                <td><%= part.Manufacturer %></td>
+                                <td>$<%= part.UnitPrice %></td>
+                                <td><%= part.QuantityInStock %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+
+        <% } else { %>
+            <p>No matching part records exist.</p>
+        <% } %>
+    </div>
+
+<% } %>
+
+
+<a href="/" class="btn">← Back to Dashboard</a>
+
+<div class="garage-signature">
+    AUTOSERVICE DB — ENGINEERED FOR PERFORMANCE
+</div>
+
+</div>
+
+<%- include('partials/footer') %>

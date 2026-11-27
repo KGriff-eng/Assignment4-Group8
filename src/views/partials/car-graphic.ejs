@@ -1,0 +1,72 @@
+
+<svg class="garage-car" viewBox="0 0 340 150"
+     xmlns="http://www.w3.org/2000/svg"
+     aria-hidden="true">
+
+    <!-- Classic muscle car body -->
+    <path d="M5 87 L9 64 L27 59 L75 55
+             L116 25 Q145 17 181 23
+             L225 54 L286 56 L316 64
+             L322 88 L312 98 L284 98
+             A31 31 0 0 0 222 98
+             L102 98 A31 31 0 0 0 40 98
+             L12 96Z"
+          fill="#200808"/>
+
+    <!-- Windows -->
+    <path d="M89 54 L121 30 Q145 24 167 28
+             L166 53Z M174 29 L184 31
+             L215 54 L174 53Z"
+          fill="#c6b9d5"/>
+
+    <!-- Body trim -->
+    <path d="M18 67 L71 64 L120 62 L218 61
+             L300 65 L311 69 L225 66
+             L114 68 L21 72Z"
+          fill="#dbbddc"/>
+
+    <path d="M108 87 L215 87 L211 92 L111 92Z"
+          fill="#99a5cd"/>
+
+    <!-- Lights -->
+    <path d="M8 78 L22 78 L22 84 L8 84Z"
+          fill="#f47358"/>
+
+    <path d="M308 72 L319 74 L319 80 L308 79Z"
+          fill="#dbbddc"/>
+
+    <!-- Door details -->
+    <path d="M181 58 L181 85 M174 64 H184"
+          stroke="#99a5cd" stroke-width="1.6"/>
+
+    <!-- Wheels -->
+    <% [71, 253].forEach(wheel => { %>
+
+        <circle cx="<%= wheel %>" cy="98"
+                r="25" fill="#200808"/>
+
+        <circle cx="<%= wheel %>" cy="98"
+                r="17" fill="#99a5cd"/>
+
+        <circle cx="<%= wheel %>" cy="98"
+                r="13" fill="#451616"/>
+
+        <% for (let i = 0; i < 5; i++) { %>
+            <rect x="<%= wheel - 2 %>" y="86"
+                  width="4" height="10"
+                  fill="#dbbddc"
+                  transform="rotate(<%= i * 72 %> <%= wheel %> 98)"/>
+        <% } %>
+
+        <circle cx="<%= wheel %>" cy="98"
+                r="4" fill="#dbbddc"/>
+
+    <% }); %>
+
+    <!-- Ground shadow -->
+    <path d="M32 130 H302"
+          stroke="#451616"
+          stroke-width="2"
+          opacity=".3"/>
+
+</svg>
